@@ -1,0 +1,7 @@
+- hosts: localhost
+  module_defaults:
+    group/k8s:
+      host: "{{openshift_api_url}}"
+      validate_certs: no
+  roles:
+    - pelorus-prereqs
