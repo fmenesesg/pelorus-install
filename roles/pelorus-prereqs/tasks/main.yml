@@ -13,5 +13,12 @@
 
   - name: Install the latest version of jq
     dnf:
-        name: jq
-        state: latest
+      name: jq
+      state: latest
+    become: yes
+    become_user: root
+
+  - name: Git checkout Pelorus repo
+    ansible.builtin.git:
+      repo: 'https://github.com/konveyor/pelorus.git'
+      dest: /tmp/checkout

@@ -1,38 +1,61 @@
-Role Name
-=========
+# Pelorus: Install Prerequisites
 
-A brief description of the role goes here.
+Role that install Pelorus Install Prerequisites.
 
-Requirements
-------------
+## Download sources
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+```bash
+# Clone Sources
+git clone https://github.com/fmenesesg/pelorus-install.git
 
-Role Variables
---------------
+# Go to pelorus-install
+cd pelorus-install
+```
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+## Pre Req
 
-Dependencies
-------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
 
-Example Playbook
-----------------
+## Demo Application
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
 
-License
--------
+## Apply Service Mesh configurations
 
-BSD
 
-Author Information
-------------------
+### Ansible Directory Structure
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+```bash
+[francisco@fmeneses pelorus-install]$ tree .
+
+
+```
+
+* group_vars/all: Global playbook variables
+
+* roles/pelorus-prereqs/files: Will contain tls.crt and tls.key files
+
+* roles/pelorus-prereqs/meta/main.yml: Metadata file (author,company, etc)
+
+* roles/pelorus-prereqs/tasks/main.yml: File that has all the tasks.
+
+* roles/pelorus-prereqs/templates/*: Template files used by the task file
+
+* site.yml: Main playbook file
+
+
+## Variables setup
+
+"All" file contains all the variables used by the playbook
+
+```yaml
+
+```
+
+## Playbook execution
+
+To execute the playbook use the following command
+
+```bash
+ansible-playbook site.yml -K
+```
