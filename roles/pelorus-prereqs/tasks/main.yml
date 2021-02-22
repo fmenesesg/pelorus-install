@@ -1,2 +1,17 @@
 ---
 # tasks file for pelorus-prereqs
+- name: Install prerequisites
+  block:
+  - name: Download Helm 3
+    get_url:
+        url: https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+        dest: /tmp/get_helm.sh
+        mode: '0700'
+
+  - name: Install Helm 3
+    ansible.builtin.shell: /tmp/get_helm.sh >> /tmp/somelog.txt
+
+  - name: Install the latest version of jq
+    dnf:
+        name: jq
+        state: latest
