@@ -43,4 +43,5 @@
     ansible.builtin.shell: helm install operators /tmp/checkout/charts/operators --namespace {{pelorus_project_name}}
 
   - name: Install Pelorus using Helm
-    ansible.builtin.shell: helm install operators /tmp/checkout/charts/operators --namespace {{pelorus_project_name}}
+    ansible.builtin.shell: helm install pelorus /tmp/checkout/charts/pelorus --namespace {{pelorus_project_name}}
+
