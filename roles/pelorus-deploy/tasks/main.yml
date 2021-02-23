@@ -1,18 +1,45 @@
 ---
 # tasks file for pelorus-deploy
+
+
+
+
 - name: Deployment of Pelorus core stack on OCP
   block:
-  - name: "OpenShift CLI login"  
-    ansible.builtin.shell: oc login -u {{ openshift_username }} -p {{ openshift_password }} {{ openshift_api_url }} --insecure-skip-tls-verify
+  - name: Log in (obtain access token)
+    k8s_auth:
+      username: "{{openshift_username}}"
+      password: "{{openshift_password}}"
+    register: k8s_auth_results
 
-  - name: Create namespace
-    ansible.builtin.shell: oc create namespace pelorus
+  - name: Create {{pelorus_project_name}} namespace
+    k8s:
+      api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
+      name: "{{pelorus_project_name}}"
+      api_version: v1
+      kind: Namespace
+      state: present
 
-  - name: Go to Pelorus git repo downloaded
-    ansible.builtin.shell: cd /tmp/checkout
+  - name: Create lab admin user
+    k8s:
+      api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
+      state: present
+      definition: "{{ lookup('file', '{{ role_path }}/files/htpass-secret.yml') }}"
+
+  - name: Configure cluster oauth
+    k8s:
+      api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
+      state: present
+      definition: "{{ lookup('file', '{{ role_path }}/files/oauth-cluster.yml') }}"
+
+  - name: Create cluster role binding
+    k8s:
+      api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
+      state: present
+      definition: "{{ lookup('file', '{{ role_path }}/files/cluster-role-binding-lab-admin.yml') }}"
 
   - name: Install operators of Pelorus using Helm
-    ansible.builtin.shell: helm install operators charts/operators --namespace pelorus
+    ansible.builtin.shell: helm install operators /tmp/checkout/charts/operators --namespace {{pelorus_project_name}}
 
   - name: Install Pelorus using Helm
-    ansible.builtin.shell: helm install operators charts/operators --namespace pelorus
+    ansible.builtin.shell: helm install operators /tmp/checkout/charts/operators --namespace {{pelorus_project_name}}

@@ -35,7 +35,3 @@
       src: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz
       dest: /usr/local/bin
       remote_src: True
-
-  - name: "OpenShift CLI login"  
-    ansible.builtin.shell: oc login -u {{ openshift_username }} -p {{ openshift_password }} {{ openshift_api_url }} --insecure-skip-tls-verify
-
