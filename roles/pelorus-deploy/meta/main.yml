@@ -1,0 +1,18 @@
+---
+dependencies: []
+allow_duplicates: true
+
+galaxy_info:
+  author: David Espinosa
+  role_name: Pelorus deploy core stack
+  description: Deployment of Pelorus core stack
+  company: "Red Hat"
+  license: "license (BSD, MIT)"
+  min_ansible_version: 2.9
+  platforms:
+  - name: GenericLinux
+    versions:
+    - any
+  galaxy_tags:
+    - pelorus
+    - openshift
