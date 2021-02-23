@@ -29,3 +29,9 @@
     ansible.builtin.git:
       repo: 'https://github.com/konveyor/pelorus.git'
       dest: /tmp/checkout
+
+  - name: Download OC client tool
+    get_url:
+        url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz
+        dest: /tmp/openshift-client-linux.tar.gz
+        mode: '0700'
