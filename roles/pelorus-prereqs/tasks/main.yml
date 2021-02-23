@@ -2,6 +2,13 @@
 # tasks file for pelorus-prereqs
 - name: Install prerequisites
   block:
+  - name: Install the latest version of openssl
+    dnf:
+      name: openssl
+      state: latest
+    become: yes
+    become_user: root
+
   - name: Download Helm 3
     get_url:
         url: https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
