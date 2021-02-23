@@ -1,7 +1,7 @@
 # API URL of Openshift 4 Instance
-openshift_api_url: "https://api.cluster-58fe.58fe.sandbox302.opentlc.com:6443"
+openshift_api_url: "https://api.cluster-8aa2.8aa2.sandbox1012.opentlc.com:6443"
 # Application domain
-openshift_apps_domain: "apps.cluster-58fe.58fe.sandbox302.opentlc.com"
+openshift_apps_domain: "apps.cluster-8aa2.8aa2.sandbox1012.opentlc.com"
 # Openshift User
 openshift_username: admin
 # Openshift Password
