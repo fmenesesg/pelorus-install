@@ -1,4 +1,18 @@
 ---
 # tasks file for pelorus-deploy
+- name: Deployment of Pelorus core stack on OCP
+  block:
+  - name: "OpenShift CLI login"  
+    ansible.builtin.shell: oc login -u {{ openshift_username }} -p {{ openshift_password }} {{ openshift_api_url }} --insecure-skip-tls-verify
 
+  - name: Create namespace
+    ansible.builtin.shell: oc create namespace pelorus
 
+  - name: Go to Pelorus git repo downloaded
+    ansible.builtin.shell: cd /tmp/checkout
+
+  - name: Install operators of Pelorus using Helm
+    ansible.builtin.shell: helm install operators charts/operators --namespace pelorus
+
+  - name: Install Pelorus using Helm
+    ansible.builtin.shell: helm install operators charts/operators --namespace pelorus
