@@ -1,8 +1,9 @@
 ---
 # tasks file for pelorus-deploy
-
-
-
+- python_requirements_info:
+        dependencies:
+          - openshift
+          - requests
 
 - name: Deployment of Pelorus core stack on OCP
   block:
