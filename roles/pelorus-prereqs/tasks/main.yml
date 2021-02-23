@@ -30,14 +30,12 @@
       repo: 'https://github.com/konveyor/pelorus.git'
       dest: /tmp/checkout
 
- # - name: Download OC client tool
- #   get_url:
- #       url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz
- #       dest: /tmp/openshift-client-linux.tar.gz
- #       mode: '0700'
-  
   - name: Download and unarchive OC client tool
     unarchive:
       src: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz
       dest: /usr/local/bin
       remote_src: True
+
+  - name: "OpenShift CLI login"  
+    ansible.builtin.shell: oc login -u {{ openshift_username }} -p {{ openshift_password }} {{ openshift_api_url }} --insecure-skip-tls-verify
+
