@@ -1,3 +1,4 @@
 - hosts: localhost
   roles:
     - pelorus-prereqs
+    - pelorus-deploy
