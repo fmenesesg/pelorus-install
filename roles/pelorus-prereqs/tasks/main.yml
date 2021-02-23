@@ -45,10 +45,3 @@
     pip:
       name: openshift
       extra_args: --user
-
-  always:
-    - name: If login succeeded, try to log out (revoke access token)
-      when: k8s_auth_results.k8s_auth.api_key is defined
-      k8s_auth:
-        state: absent
-        api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
