@@ -6,7 +6,6 @@ openshift_apps_domain: "apps.cluster-8aa2.8aa2.sandbox1012.opentlc.com"
 openshift_username: admin
 # Openshift Password
 openshift_password: "r3dh4t1!"
-# Project used to deploy Service Mesh Control Plane
-control_plane_project_name: "bookretail-istio-system"
-# Namespace that will be included into Service Mesh Scope
-service_mesh_member_roll_namespaces: " bookinfo"
+# Project used to deploy Pelorus
+pelorus_project_name: "pelorus"
+
