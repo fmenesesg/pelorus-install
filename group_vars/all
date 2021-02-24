@@ -1,11 +1,11 @@
 # API URL of Openshift 4 Instance
-openshift_api_url: "https://api.cluster-8aa2.8aa2.sandbox1012.opentlc.com:6443"
+openshift_api_url: "https://api.cluster-8527.8527.example.opentlc.com:6443"
 # Application domain
-openshift_apps_domain: "apps.cluster-8aa2.8aa2.sandbox1012.opentlc.com"
+openshift_apps_domain: "apps.cluster-8527.8527.example.opentlc.com"
 # Openshift User
-openshift_username: admin
+openshift_username: pelorus-admin
 # Openshift Password
-openshift_password: "r3dh4t1!"
+openshift_password: admin
 # Project used to deploy Pelorus
 pelorus_project_name: "pelorus"
 
