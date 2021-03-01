@@ -9,14 +9,14 @@
   block:
   - name: Log in (obtain access token)
     k8s_auth:
-      username: "{{openshift_username}}"
-      password: "{{openshift_password}}"
+      username: "{{ openshift_username }}"
+      password: "{{ password }}"
     register: k8s_auth_results
 
-  - name: Create {{pelorus_project_name}} namespace
+  - name: Create {{ pelorus_project_name }} namespace
     k8s:
       api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
-      name: "{{pelorus_project_name}}"
+      name: "{{ pelorus_project_name }}"
       api_version: v1
       kind: Namespace
       state: present

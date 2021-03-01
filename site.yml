@@ -1,8 +1,10 @@
 - hosts: localhost
   module_defaults:
     group/k8s:
-      host: "{{openshift_api_url}}"
+      host: "{{ api_url }}"
       validate_certs: no
+  vars_files:
+    - secret.yml
   roles:
     - pelorus-prereqs
     - pelorus-deploy
