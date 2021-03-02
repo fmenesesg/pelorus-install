@@ -22,39 +22,19 @@
       state: present
 
   - name: Get htpasswd secret
-    community.kubernetes.k8s_info:
+    k8s_info:
+      api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
       api_version: v1
       kind: Secret
       name: htpasswd-secret
       namespace: openshift-config
-    register: htpasswd-secret
+    register: htpasswd_secret
 
-  - local_action: copy content="{{ htpasswd-secret | b64decode}}" dest='{{ role_path }}/files/htpasswd-secret.yaml
+  - name: Debug
+    ansible.builtin.debug:
+      msg: "{{ htpasswd_secret.resources[0] | to_nice_yaml }}"
 
-  - name: Create lab admin user
-    k8s:
-      api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
-      state: present
-      definition: "{{ lookup('file', '{{ role_path }}/files/htpass-secret.yml') }}"
-
-  - name: Configure cluster oauth
-    k8s:
-      api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
-      state: present
-      definition: "{{ lookup('file', '{{ role_path }}/files/oauth-cluster.yml') }}"
-
-  - name: Create cluster role binding
-    k8s:
-      api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
-      state: present
-      definition: "{{ lookup('file', '{{ role_path }}/files/cluster-role-binding-lab-admin.yml') }}"
-
-  - name: Install operators of Pelorus using Helm
-    ansible.builtin.shell: helm install operators /tmp/checkout/charts/operators --namespace {{pelorus_project_name}}
-
-  - name: Install Pelorus using Helm
-    ansible.builtin.shell: helm install pelorus /tmp/checkout/charts/pelorus --namespace {{pelorus_project_name}}
-
+  - local_action: copy content="{{ htpasswd_secret.resources[0] | to_nice_yaml }}" dest='{{ role_path }}/files/htpasswd-secret.yml'
 
   always:
   - name: If login succeeded, try to log out (revoke access token)
