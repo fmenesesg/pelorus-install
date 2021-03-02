@@ -9,7 +9,7 @@
   block:
   - name: Log in (obtain access token)
     k8s_auth:
-      username: "{{ openshift_username }}"
+      username: "{{ username }}"
       password: "{{ password }}"
     register: k8s_auth_results
 

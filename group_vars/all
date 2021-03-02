@@ -3,7 +3,7 @@ api_url: "{{ openshift_api_url }}"
 # Application domain
 apps_domain: "{{ openshift_apps_domain }}"
 # Openshift User
-openshift_username: pelorus-admin
+username: "{{ openshift_user }}"
 # Openshift Password
 password: "{{ openshift_password }}"
 # Project used to deploy Pelorus
