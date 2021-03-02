@@ -21,6 +21,16 @@
       kind: Namespace
       state: present
 
+  - name: Get htpasswd secret
+    community.kubernetes.k8s_info:
+      api_version: v1
+      kind: Secret
+      name: htpasswd-secret
+      namespace: openshift-config
+    register: htpasswd-secret
+
+  - local_action: copy content="{{ htpasswd-secret | b64decode}}" dest='{{ role_path }}/files/htpasswd-secret.yaml
+
   - name: Create lab admin user
     k8s:
       api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
