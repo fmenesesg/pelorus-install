@@ -28,6 +28,7 @@
       src: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz
       dest: /usr/local/bin
       remote_src: True
+      keep_newer: true
     become: yes
     become_user: root
   
