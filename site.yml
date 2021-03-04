@@ -6,5 +6,5 @@
   vars_files:
     - secret.yml
   roles:
-    - pelorus-prereqs
+#    - pelorus-prereqs
     - pelorus-deploy

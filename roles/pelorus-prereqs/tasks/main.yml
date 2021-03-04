@@ -28,6 +28,8 @@
       src: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz
       dest: /usr/local/bin
       remote_src: True
+    become: yes
+    become_user: root
   
   - name: Install openshift and requests-oauthlib python package
     pip:

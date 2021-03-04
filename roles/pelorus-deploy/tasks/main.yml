@@ -12,6 +12,9 @@
       username: "{{ username }}"
       password: "{{ password }}"
     register: k8s_auth_results
+  
+  - name: Log in (obtain access token)
+    ansible.builtin.shell: oc login -u "{{ username }}" -p "{{ password }}" "{{ api_url}}"
 
   - name: Create {{ pelorus_project_name }} namespace
     k8s:
@@ -20,21 +23,16 @@
       api_version: v1
       kind: Namespace
       state: present
-
-  - name: Get htpasswd secret
-    k8s_info:
-      api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
-      api_version: v1
-      kind: Secret
-      name: htpasswd-secret
-      namespace: openshift-config
-    register: htpasswd_secret
-
-  - name: Debug
+  
+  - name: Print return information from the previous task
     ansible.builtin.debug:
-      msg: "{{ htpasswd_secret.resources[0] | to_nice_yaml }}"
+      var: k8s_auth_results
 
-  - local_action: copy content="{{ htpasswd_secret.resources[0] | to_nice_yaml }}" dest='{{ role_path }}/files/htpasswd-secret.yml'
+  - name: Install operators of Pelorus using Helm
+    ansible.builtin.shell: helm upgrade --install operators /tmp/checkout/charts/operators --namespace {{pelorus_project_name}}
+
+  - name: Install Pelorus using Helm
+    ansible.builtin.shell: helm upgrade --install pelorus /tmp/checkout/charts/pelorus --namespace {{pelorus_project_name}} --kube-token {{ k8s_auth_results.k8s_auth.api_key }}
 
   always:
   - name: If login succeeded, try to log out (revoke access token)
