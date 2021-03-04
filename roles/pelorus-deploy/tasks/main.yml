@@ -23,16 +23,24 @@
       api_version: v1
       kind: Namespace
       state: present
-  
-  - name: Print return information from the previous task
-    ansible.builtin.debug:
-      var: k8s_auth_results
 
-  - name: Install operators of Pelorus using Helm
-    ansible.builtin.shell: helm upgrade --install operators /tmp/checkout/charts/operators --namespace {{pelorus_project_name}}
+  - name: Deploy latest version of Prometheus chart inside  (and create it)
+    kubernetes.core.helm:
+      name: operators
+      chart_ref: /tmp/checkout/charts/operators
+      release_namespace: "{{pelorus_project_name}}"
+      create_namespace: true
+      force: true
+      wait: true
 
-  - name: Install Pelorus using Helm
-    ansible.builtin.shell: helm upgrade --install pelorus /tmp/checkout/charts/pelorus --namespace {{pelorus_project_name}} --kube-token {{ k8s_auth_results.k8s_auth.api_key }}
+  - name: Deploy latest version of Pelorus chart inside  (and create it)
+    kubernetes.core.helm:
+      name: pelorus
+      chart_ref: /tmp/checkout/charts/pelorus
+      release_namespace: "{{pelorus_project_name}}"
+      create_namespace: true
+      force: true
+      wait: true
 
   always:
   - name: If login succeeded, try to log out (revoke access token)
