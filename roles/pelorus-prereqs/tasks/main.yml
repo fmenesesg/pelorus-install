@@ -9,6 +9,9 @@
     become: yes
     become_user: root
 
+  - name: Install ansible kubernetes.core module
+    ansible.builtin.shell: ansible-galaxy collection install kubernetes.core
+
   - name: Download Helm 3
     get_url:
         url: https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
@@ -28,6 +31,7 @@
       src: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz
       dest: /usr/local/bin
       remote_src: True
+      keep_newer: true
     become: yes
     become_user: root
   
