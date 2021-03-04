@@ -14,7 +14,7 @@
     register: k8s_auth_results
   
   - name: Log in (obtain access token)
-    ansible.builtin.shell: oc login -u "{{ username }}" -p "{{ password }}" "{{ api_url}}"
+    ansible.builtin.shell: oc login -u "{{ username }}" -p "{{ password }}" "{{ api_url}}" --insecure-skip-tls-verify
 
   - name: Create {{ pelorus_project_name }} namespace
     k8s:
