@@ -30,7 +30,6 @@
       chart_ref: /tmp/checkout/charts/operators
       release_namespace: "{{pelorus_project_name}}"
       create_namespace: true
-      force: true
       wait: true
 
   - name: Deploy latest version of Pelorus chart inside  (and create it)
@@ -39,7 +38,6 @@
       chart_ref: /tmp/checkout/charts/pelorus
       release_namespace: "{{pelorus_project_name}}"
       create_namespace: true
-      force: true
       wait: true
 
   always:
