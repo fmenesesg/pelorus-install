@@ -24,10 +24,10 @@ Credenciales de usuario
 
     ansible-vault edit secret.yml
 
-      openshift_user: "opentlc-mgr"
-      openshift_password: "r3dh4t1!"
-      openshift_api_url: "https://api.cluster-7998.7998.example.opentlc.com:6443"
-      openshift_apps_domain: "apps.cluster-7998.7998.example.opentlc.com"
+      openshift_user: ""
+      openshift_password: ""
+      openshift_api_url: "https://api.cluster.com:6443"
+      openshift_apps_domain: "apps.cluster.com"
 
 
 Paso a paso --> usar base del de install pelorus
