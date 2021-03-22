@@ -31,6 +31,7 @@
       release_namespace: "{{pelorus_project_name}}"
       create_namespace: true
       wait: true
+      wait_timeout: 300s
 
   
   - name: Wait until Operator is available
@@ -44,6 +45,7 @@
       release_namespace: "{{pelorus_project_name}}"
       create_namespace: true
       wait: true
+      wait_timeout: 300s
 
   always:
   - name: If login succeeded, try to log out (revoke access token)

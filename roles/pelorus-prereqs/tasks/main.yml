@@ -10,9 +10,6 @@
       - "{{ ansible_distribution }}_package.yml"
 
 
-  - name: Install ansible kubernetes.core module
-    ansible.builtin.shell: ansible-galaxy collection install kubernetes.core
-
   - name: Download Helm 3
     get_url:
         url: https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
