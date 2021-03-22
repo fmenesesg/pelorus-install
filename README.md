@@ -18,9 +18,9 @@ Credenciales de usuario
 
   Procedure
 
-    - Descargar repo Git
+   - Descargar repo Git
 
-    - Log into OCP cluster with account with administrator privileges
+   - Log into OCP cluster with account with administrator privileges
 
     ansible-vault edit secret.yml
 
