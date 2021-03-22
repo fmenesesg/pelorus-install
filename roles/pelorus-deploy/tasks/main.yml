@@ -14,7 +14,7 @@
     register: k8s_auth_results
   
   - name: Log in (obtain access token)
-    ansible.builtin.shell: oc login -u "{{ username }}" -p "{{ password }}" "{{ api_url}}"
+    ansible.builtin.shell: oc login -u "{{ username }}" -p "{{ password }}" --insecure-skip-tls-verify=true "{{ api_url}}"
 
   - name: Create {{ pelorus_project_name }} namespace
     k8s:
@@ -31,6 +31,11 @@
       release_namespace: "{{pelorus_project_name}}"
       create_namespace: true
       wait: true
+
+  
+  - name: Wait until Operator is available
+    pause:
+      seconds: 20  
 
   - name: Deploy latest version of Pelorus chart inside  (and create it)
     kubernetes.core.helm:
