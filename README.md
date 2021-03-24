@@ -1,39 +1,53 @@
 # pelorus-install
 
-Prerequisitos:
-  - ansible (version 2.9)
+
+Prerequisites:
+ - An OpenShift 3.11 or higher Environment (You need to have cluster administrator privileges)
+ - A machine from which to run the install (usually your laptop) 
+  - ansible (version 2.9 or higher)
+  - git
+  - Ansible module "kubernetes.core" (ansible-galaxy collection install kubernetes.core)
+
   - Cuenta GitHub y su token
   - Cuenta de Jira Cloud y su token
   - OCP cluster - Lab enviroment from RHPDS
     Ask for service enviroment:
       Workshops (High-Cost Worloads) -> "OpenShift 4.6 Workshop (Training)"   
 
-Credenciales de usuario
-
-  - Configurar ansible vault
-
-  Prerequisites
-
-      You have cluster administrator privileges.
-
+Set ansible vault
   Procedure
 
-    - Descargar repo Git
+    - Get from your OCP cluster the following variables:
+      . Openshift API URL: <OCP_API_URL>
+      . Openshift user with cluster admin privileges: <OCP_USER_CLUSTER_ADMIN>
+      . Openshift password with cluster admin privileges: <OCP_PASSWORD_USER_CLUSTER_ADMIN>
+      . Openshift apps domain: <OCP_APPS_DOMAIN>
 
-    - Log into OCP cluster with account with administrator privileges
+    - Download git repo https://github.com/fmenesesg/pelorus-install/
+      . git clone https://github.com/fmenesesg/pelorus-install/
 
-    ansible-vault edit secret.yml
+    - In the root of this repository edit "secret.yml" (password vault: r3dh4t1!) 
+      . ansible-vault edit secret.yml
 
-      openshift_user: "opentlc-mgr"
-      openshift_password: "r3dh4t1!"
-      openshift_api_url: "https://api.cluster-7998.7998.example.opentlc.com:6443"
-      openshift_apps_domain: "apps.cluster-7998.7998.example.opentlc.com"
+      and edit the following lines with corresponding values:
 
+      openshift_user: "<OCP_USER_CLUSTER_ADMIN>"
+      openshift_password: "<OCP_PASSWORD_USER_CLUSTER_ADMIN>"
+      openshift_api_url: "<OCP_API_URL>"
+      openshift_apps_domain: "<OCP_APPS_DOMAIN>"
 
-Paso a paso --> usar base del de install pelorus
-  - Ejecución del playbook
-    ansible-playbook site.yml -K --ask-vault -vvv
+Execute the ansible playbook (password vault: r3dh4t1!)
+- ansible-playbook site.yml -K --ask-vault 
 
+In a few seconds, you will see a number of resources get created:
 
-
+* Prometheus and Grafana operators
+* The core Pelorus stack, which includes:
+  * A `Prometheus` instance
+  * A `Grafana` instance
+  * A `ServiceMonitor` instance for scraping the Pelorus exporters.
+  * A `GrafanaDatasource` pointing to Prometheus.
+  * A set of `GrafanaDashboards`. See the [dashboards documentation](/docs/Dashboards.md) for more details.
+* The following exporters:
+  * Deploy Time
 
