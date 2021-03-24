@@ -1,0 +1,8 @@
+- name: Install the latest version of openssl and jq on {{ansible_distribution}}
+  dnf:
+    name: ['openssl','jq']
+    state: latest
+  become: yes
+  become_user: root
+  when:
+    ansible_distribution == "Centos"

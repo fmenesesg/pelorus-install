@@ -7,8 +7,8 @@ Prerequisites:
   - ansible (version 2.9)
   - git
   - Ansible module "kubernetes.core"
-  - Cuenta GitHub y su token
-  - Cuenta de Jira Cloud y su token
+  - GitHub account
+  - [Jira Cloud account](#create-jira-account)
 
 Procedure
 
@@ -26,24 +26,18 @@ git clone https://github.com/fmenesesg/pelorus-install/
 3. In the root of this repository create "secret.yml":
 ~~~
 ansible-vault create secret.yml
-New Vault password: 
-Confirm New Vault password:
+New Vault password: *****
+Confirm New Vault password: *****
 ~~~
 Take note the password that you choice
-4. 
-    - Create secret.yml using the command:
-          ansible-vault create secret.yml 
-3- 
+4. In secret.yml add the following lines with corresponding values and save:
 
+  openshift_user: "<OCP_USER_CLUSTER_ADMIN>"
+  openshift_password: "<OCP_PASSWORD_USER_CLUSTER_ADMIN>"
+  openshift_api_url: "<OCP_API_URL>"
+  openshift_apps_domain: "<OCP_APPS_DOMAIN>"
 
-      and edit the following lines with corresponding values:
-
-      openshift_user: "<OCP_USER_CLUSTER_ADMIN>"
-      openshift_password: "<OCP_PASSWORD_USER_CLUSTER_ADMIN>"
-      openshift_api_url: "<OCP_API_URL>"
-      openshift_apps_domain: "<OCP_APPS_DOMAIN>"
-
-Execute the ansible playbook (password vault: r3dh4t1!)
+5. Execute the ansible playbook
 - ansible-playbook site.yml -K --ask-vault 
 
 In a few seconds, you will see a number of resources get created:
@@ -59,7 +53,7 @@ In a few seconds, you will see a number of resources get created:
   * Deploy Time
 
 
-Create Jira account
+## Create Jira account
 
 1- Access https://www.atlassian.com/es/try/cloud/signup?bundle=jira-software&edition=free and create a free account.
 
