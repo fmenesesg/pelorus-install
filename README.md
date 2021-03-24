@@ -2,32 +2,39 @@
 
 
 Prerequisites:
- - An OpenShift 3.11 or higher Environment (You need to have cluster administrator privileges)
- - A machine from which to run the install (usually your laptop) 
-  - ansible (version 2.9 or higher)
+  - An OpenShift 3.11 or higher Environment (You need to have cluster administrator privileges)
+  - A machine from which to run the install (usually your laptop) 
+  - ansible (version 2.9)
   - git
-  - Ansible module "kubernetes.core" (ansible-galaxy collection install kubernetes.core)
-
+  - Ansible module "kubernetes.core"
   - Cuenta GitHub y su token
   - Cuenta de Jira Cloud y su token
-  - OCP cluster - Lab enviroment from RHPDS
-    Ask for service enviroment:
-      Workshops (High-Cost Worloads) -> "OpenShift 4.6 Workshop (Training)"   
 
-Set ansible vault
-  Procedure
+Procedure
 
-    - Get from your OCP cluster the following variables:
-      . Openshift API URL: <OCP_API_URL>
-      . Openshift user with cluster admin privileges: <OCP_USER_CLUSTER_ADMIN>
-      . Openshift password with cluster admin privileges: <OCP_PASSWORD_USER_CLUSTER_ADMIN>
-      . Openshift apps domain: <OCP_APPS_DOMAIN>
+1. Get from your OCP cluster the following variables:
+~~~
+Openshift API URL: <OCP_API_URL>
+Openshift user with cluster admin privileges: <OCP_USER_CLUSTER_ADMIN>
+Openshift password with cluster admin privileges: <OCP_PASSWORD_USER_CLUSTER_ADMIN>
+Openshift apps domain: <OCP_APPS_DOMAIN>
+~~~
+2. Download git repo https://github.com/fmenesesg/pelorus-install/
+~~~
+git clone https://github.com/fmenesesg/pelorus-install/
+~~~
+3. In the root of this repository create "secret.yml":
+~~~
+ansible-vault create secret.yml
+New Vault password: 
+Confirm New Vault password:
+~~~
+Take note the password that you choice
+4. 
+    - Create secret.yml using the command:
+          ansible-vault create secret.yml 
+3- 
 
-    - Download git repo https://github.com/fmenesesg/pelorus-install/
-      . git clone https://github.com/fmenesesg/pelorus-install/
-
-    - In the root of this repository edit "secret.yml" (password vault: r3dh4t1!) 
-      . ansible-vault edit secret.yml
 
       and edit the following lines with corresponding values:
 
@@ -51,3 +58,22 @@ In a few seconds, you will see a number of resources get created:
 * The following exporters:
   * Deploy Time
 
+
+Create Jira account
+
+1- Access https://www.atlassian.com/es/try/cloud/signup?bundle=jira-software&edition=free and create a free account.
+
+![Jira account](images/jira_create_account.png)
+
+2- Access your account and go to https://id.atlassian.com/manage-profile/security/api-tokens and create a new token.
+
+Steps:
+  - Navigate to Jira
+  - Click on your profile picture
+  - Account settings
+  - Security
+  - Create and manage API tokens
+
+![Jira account](images/jira_create_token.png)
+
+Ensure that you save the token upon generation, as it will disapear after closing the dialog box.
