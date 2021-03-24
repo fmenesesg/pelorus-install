@@ -17,30 +17,17 @@ Prerequisites:
 Set ansible vault
   Procedure
 
-<<<<<<< HEAD
     - Get from your OCP cluster the following variables:
       . Openshift API URL: <OCP_API_URL>
       . Openshift user with cluster admin privileges: <OCP_USER_CLUSTER_ADMIN>
       . Openshift password with cluster admin privileges: <OCP_PASSWORD_USER_CLUSTER_ADMIN>
       . Openshift apps domain: <OCP_APPS_DOMAIN>
-=======
-   - Descargar repo Git
-
-   - Log into OCP cluster with account with administrator privileges
->>>>>>> ed581b901e41a2b0b44468ed7a1e0631f984996a
 
     - Download git repo https://github.com/fmenesesg/pelorus-install/
       . git clone https://github.com/fmenesesg/pelorus-install/
 
-<<<<<<< HEAD
     - In the root of this repository edit "secret.yml" (password vault: r3dh4t1!) 
       . ansible-vault edit secret.yml
-=======
-      openshift_user: ""
-      openshift_password: ""
-      openshift_api_url: "https://api.cluster.com:6443"
-      openshift_apps_domain: "apps.cluster.com"
->>>>>>> ed581b901e41a2b0b44468ed7a1e0631f984996a
 
       and edit the following lines with corresponding values:
 
