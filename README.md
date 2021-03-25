@@ -5,6 +5,7 @@ Prerequisites:
   - An OpenShift 3.11 or higher Environment (You need to have cluster administrator privileges)
   - A machine from which to run the install (usually your laptop) 
   - ansible (version 2.9)
+  - Python
   - git
   - Ansible module "kubernetes.core"
   - GitHub account
@@ -29,14 +30,14 @@ ansible-vault create secret.yml
 New Vault password: *****
 Confirm New Vault password: *****
 ~~~
-Take note the password that you choice
-4. In secret.yml add the following lines with corresponding values and save:
 
+4. In secret.yml add the following lines with corresponding values and save:
+  ~~~
   openshift_user: "<OCP_USER_CLUSTER_ADMIN>"
   openshift_password: "<OCP_PASSWORD_USER_CLUSTER_ADMIN>"
   openshift_api_url: "<OCP_API_URL>"
   openshift_apps_domain: "<OCP_APPS_DOMAIN>"
-
+  ~~~
 5. Execute the ansible playbook
 - ansible-playbook site.yml -K --ask-vault 
 
@@ -71,3 +72,25 @@ Steps:
 ![Jira account](images/jira_create_token.png)
 
 Ensure that you save the token upon generation, as it will disapear after closing the dialog box.
+
+## Create GitHub account
+
+1- Access https://github.com/join?source=login and create an account.
+
+![GitHub account](images/github_create_account.png)
+
+2- Access your account:
+
+Steps:
+  - Navigate to GitHub
+  - In the upper-right corner of any page, click your profile photo, then click Settings
+  - In the left sidebar, click Developer settings
+  - In the left sidebar, click Personal access tokens
+  - Click Generate new token
+  - Give your token a descriptive name
+  - Select the scopes, or permissions, you'd like to grant this token. To use your token to access repositories from the command line, select repo
+  - Click Generate token
+  - Copy the token to your clipboard. For security reasons, after you navigate off the page, you will not be able to see the token again. 
+
+![GitHub account](images/github_create_token.png)
+
